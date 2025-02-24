@@ -1,0 +1,270 @@
+/* 
+  CSS Variables for flexible timing control
+  -----------------------------------------
+  Total loop duration: 6200ms (6s animation + 200ms pause)
+  The keyframes use percentage markers aligned with this duration.
+*/
+
+:root {
+    --animation-total: 6200ms; /* Full loop duration (6000ms + 200ms pause) */
+    --base-animation-duration: 3000ms; /* Reference: 3s base if needed */
+    --transition-duration: 800ms; /* Example usage if extended transitions are needed */
+    --pause-between: 500ms; /* Example usage if needed for delays */
+}
+
+/* 
+    Global Resets & Defaults
+    ------------------------
+  */
+* {
+    box-sizing: border-box;
+}
+html,
+body {
+    margin: 0;
+    padding: 0;
+    background: #000000; /* Making it explicitly black */
+    color: #fff;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    height: 100%;
+    overflow: hidden; /* Prevent unwanted scrollbars from animation */
+}
+
+/* 
+    Optional Star Background
+    ------------------------
+    This creates a subtle starry effect using radial-gradients
+    and a gentle twinkle animation.
+  */
+.stars {
+    position: fixed;
+    inset: 0; /* top:0; right:0; bottom:0; left:0; */
+    background: radial-gradient(2px 2px at 20% 20%, #fff 2%, transparent 4%) repeat, radial-gradient(1px 1px at 70% 30%, #fff 2%, transparent 4%) repeat,
+        radial-gradient(1px 1px at 40% 70%, #fff 2%, transparent 4%) repeat, radial-gradient(2px 2px at 90% 60%, #fff 2%, transparent 4%) repeat;
+    background-size: 100px 100px; /* Adjust star density with background-size */
+    opacity: 0.8;
+    animation: twinkle 2s infinite alternate;
+}
+
+/* Soft twinkling effect for stars */
+@keyframes twinkle {
+    0% {
+        opacity: 0.7;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* 
+    Container for Main Animated Elements
+    ------------------------------------
+  */
+.animation-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    /* 
+      Center content flexibly; 
+      Adjust to your layout preference. 
+    */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/*
+    Text Elements
+    -------------
+    Each text line has its own timed fade-in / fade-out sequence 
+    based on the 6200ms total loop.
+  */
+.text {
+    text-align: center;
+    opacity: 0; /* Invisible by default */
+    margin: 10px 0;
+}
+
+/*
+    1) First text ("until your craziest")
+       Fades in around 500ms (≈8%) to 1500ms (≈24%), 
+       then remains or fades out. 
+  */
+.text-1 {
+    font-size: 2em;
+    animation: textOneFade var(--animation-total) linear infinite;
+}
+
+@keyframes textOneFade {
+    /* 
+      Timeline (% of 6200ms):
+      0% - 8% (0ms - ~500ms)    => opacity 0
+      8% - 12% (~500ms - ~750ms)=> fade in to opacity 1
+      12% - 24% (~750ms - ~1500ms) => stay visible
+      24% - 25% (~1500ms+)      => fade out or remain if you prefer
+      25% - 100%                => opacity 0
+    */
+    0%,
+    8% {
+        opacity: 0;
+    }
+    12% {
+        opacity: 1;
+    }
+    24% {
+        opacity: 1;
+    }
+    25%,
+    100% {
+        opacity: 0;
+    }
+}
+
+/*
+    2) Second text ("ideas become reality")
+       Fades in around 2300ms (≈37%) to 3300ms (≈53%),
+       then fades out again before loop restarts.
+  */
+.text-2 {
+    font-size: 1.5em;
+    animation: textTwoFade var(--animation-total) linear infinite;
+}
+
+@keyframes textTwoFade {
+    /*
+      Timeline (% of 6200ms):
+      0% - 37%   => opacity 0
+      37% - 42%  => fade in
+      42% - 53%  => visible
+      53% - 54%  => fade out
+      54% - 100% => opacity 0
+    */
+    0%,
+    37% {
+        opacity: 0;
+    }
+    42% {
+        opacity: 1;
+    }
+    53% {
+        opacity: 1;
+    }
+    54%,
+    100% {
+        opacity: 0;
+    }
+}
+
+/*
+    Circular Element
+    ----------------
+    Appears with an initial glow, then gently pulses. 
+    Fades in around 1500ms (≈24%) and fades out by ~6000ms (≈97%).
+  */
+.circle {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+    opacity: 0;
+    margin: 40px 0;
+
+    /* Two animations:
+       1) Fade in/out timing (one loop = 6200ms).
+       2) Continuous pulse effect (2s cycle).
+    */
+    animation: circleFade var(--animation-total) linear infinite, circlePulse 2000ms ease-in-out infinite;
+}
+
+@keyframes circleFade {
+    /* 
+      Timeline (% of 6200ms):
+      0% - 24%  => opacity 0
+      25% - 73% => opacity 1
+      73% - 100%=> fade out to 0 
+    */
+    0%,
+    24% {
+        opacity: 0;
+    }
+    25%,
+    73% {
+        opacity: 1;
+    }
+    97%,
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes circlePulse {
+    0%,
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+    }
+    50% {
+        transform: scale(1.1);
+        box-shadow: 0 0 40px rgba(255, 255, 255, 1);
+    }
+}
+
+/* 
+    Bottom Navigation Bar
+    ---------------------
+    Fixed position with high contrast (dark background, white text/icons).
+  */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #111;
+    z-index: 999;
+}
+
+.bottom-nav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 60px;
+}
+
+.bottom-nav a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.9em;
+    position: relative;
+}
+
+.nav-icon {
+    /* Placeholder styling for icon text;
+       Replace with actual icons or icon fonts as desired. */
+    display: inline-block;
+    padding: 4px 6px;
+}
+
+/* 
+    Profile item with notification dot 
+  */
+.profile {
+    position: relative;
+}
+
+.notification-dot {
+    position: absolute;
+    top: -4px;
+    right: -8px;
+    width: 10px;
+    height: 10px;
+    background: red;
+    border-radius: 50%;
+    /* Add a subtle glow if you like:
+       box-shadow: 0 0 5px rgba(255,0,0,0.6);
+    */
+}
