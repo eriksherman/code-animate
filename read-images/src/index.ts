@@ -23,49 +23,16 @@
  */
 
 import { PromptTemplate } from '@langchain/core/prompts'
-import { Annotation, StateGraph } from '@langchain/langgraph'
-import { ChatOpenAI } from '@langchain/openai'
+import { OpenAI } from 'openai'
 import { config } from 'dotenv'
 import ffmpeg from 'fluent-ffmpeg'
 import * as fs from 'fs/promises'
 import * as path from 'path'
 
-config()
+config({ path: path.join(process.cwd(), '..', '.env') })
 
 // Initialize OpenAI Vision model
-const visionModel = new ChatOpenAI({
-    modelName: 'gpt-4o',
-    maxTokens: 1024,
-})
-
-// Define our base state type
-type State = {
-    frames: string[]
-    currentFrame: number
-    descriptions: string[]
-    previousDescription: string
-    tempDir: string
-}
-
-// Define graph state annotations
-const GraphState = {
-    // Input data
-    frames: Annotation<string[]>({
-        reducer: (x, y) => y ?? x ?? [],
-    }),
-    currentFrame: Annotation<number>({
-        reducer: (x, y) => y ?? x ?? 0,
-    }),
-    descriptions: Annotation<string[]>({
-        reducer: (x, y) => y ?? x ?? [],
-    }),
-    previousDescription: Annotation<string>({
-        reducer: (x, y) => y ?? x ?? '',
-    }),
-    tempDir: Annotation<string>({
-        reducer: (x, y) => y ?? x ?? '',
-    }),
-}
+const openai = new OpenAI()
 
 // Create prompt template for frame analysis
 const frameAnalysisPrompt = PromptTemplate.fromTemplate(`
@@ -114,26 +81,35 @@ async function analyzeVideo(videoPath: string): Promise<string> {
         const base64Image = frameData.toString('base64')
 
         try {
-            const result = await visionModel.call([
-                {
-                    role: 'user',
-                    content: [
-                        {
-                            type: 'text',
-                            text: frameAnalysisPrompt.format({
-                                previousDescription: previousDescription || 'This is the first frame',
-                                timestamp: i,
-                            }),
-                        },
-                        {
-                            type: 'image_url',
-                            image_url: `data:image/png;base64,${base64Image}`,
-                        },
-                    ],
-                },
-            ])
+            const prompt = await frameAnalysisPrompt.format({
+                previousDescription: previousDescription || 'This is the first frame',
+                timestamp: i,
+            })
 
-            const description = result.content.toString()
+            const result = await openai.chat.completions.create({
+                model: 'gpt-4o',
+                messages: [
+                    {
+                        role: 'user',
+                        content: [
+                            {
+                                type: 'text',
+                                text: prompt,
+                            },
+                            {
+                                type: 'image_url',
+                                image_url: {
+                                    url: `data:image/png;base64,${base64Image}`,
+                                    detail: 'auto',
+                                },
+                            },
+                        ],
+                    },
+                ],
+                max_tokens: 1024,
+            })
+
+            const description = result.choices[0].message.content || ''
             console.log(`Frame ${i} description:`, description)
             descriptions.push(`[${i}s] ${description}`)
             previousDescription = description
