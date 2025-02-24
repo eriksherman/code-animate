@@ -23,19 +23,49 @@
  */
 
 import { PromptTemplate } from '@langchain/core/prompts'
+import { Annotation, StateGraph } from '@langchain/langgraph'
 import { ChatOpenAI } from '@langchain/openai'
 import { config } from 'dotenv'
 import ffmpeg from 'fluent-ffmpeg'
 import * as fs from 'fs/promises'
 import * as path from 'path'
 
-config({ path: path.join(process.cwd(), '..', '.env') })
+config()
 
 // Initialize OpenAI Vision model
 const visionModel = new ChatOpenAI({
-    modelName: 'gpt-4-vision-preview',
+    modelName: 'gpt-4o',
     maxTokens: 1024,
 })
+
+// Define our base state type
+type State = {
+    frames: string[]
+    currentFrame: number
+    descriptions: string[]
+    previousDescription: string
+    tempDir: string
+}
+
+// Define graph state annotations
+const GraphState = {
+    // Input data
+    frames: Annotation<string[]>({
+        reducer: (x, y) => y ?? x ?? [],
+    }),
+    currentFrame: Annotation<number>({
+        reducer: (x, y) => y ?? x ?? 0,
+    }),
+    descriptions: Annotation<string[]>({
+        reducer: (x, y) => y ?? x ?? [],
+    }),
+    previousDescription: Annotation<string>({
+        reducer: (x, y) => y ?? x ?? '',
+    }),
+    tempDir: Annotation<string>({
+        reducer: (x, y) => y ?? x ?? '',
+    }),
+}
 
 // Create prompt template for frame analysis
 const frameAnalysisPrompt = PromptTemplate.fromTemplate(`
