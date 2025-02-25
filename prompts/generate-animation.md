@@ -6,6 +6,8 @@ video-game-animation is currently empty with just a description.txt describing i
 
 use index.html, styles.css in the root dir as a _very_ simple example.
 
+**IMPORTANT NOTE**: The description.txt file contains a frame-by-frame DESCRIPTION of what the animation should look like, not an actual frame-by-frame animation implementation. Your task is to create a single HTML/CSS animation that represents this description, not to implement each frame as a separate static image or state.
+
 ## Expected Directory Structure
 
 ```
