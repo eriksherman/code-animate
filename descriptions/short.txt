@@ -1,0 +1,64 @@
+# VIDEO GAME ANIMATION SEQUENCE
+A 50-frame animation showing various game-inspired visual elements.
+
+## Frame 0s
+- **Elements**: Eight evenly spaced horizontal circles with text "TURN YOUR LIFE" above and "INTO A VIDEO GAME" below
+- **Context**: Opening title screen establishing the theme
+
+## Frame 1s
+- **Elements**: Large white circle centered within concentric pentagon-like shape
+- **Additional**: Three arrow shapes pointing to center from top, left, and bottom
+- **Changes**: Title text removed, replaced by energy/motion-suggesting visual
+
+## Frames 2-8s: Hammer and Nail Sequence
+- **2s**: Hammer positioned diagonally above vertical nail
+- **3s**: Hammer moves closer to nail
+- **4s**: Hammer directly above nail in striking position
+- **5s**: Hammer rotated to side angle, moved away from nail
+- **6s**: Hammer moving back toward nail from right side
+- **7s**: Hammer very close to nail in downward swing position
+- **8s**: Only nail head visible (oval shape), hammer no longer present (implied impact)
+
+## Frames 9-18s: Smartphone Interface Sequence
+- **9s**: Rectangular smartphone outline with "12:31" at top, white circle near bottom
+- **10s**: Smartphone with "12:31" and four rounded rectangles, white dot moved to top center
+- **11s**: Five horizontal circles with Pac-Man shape on left; "TURN YOUR LIFE" and "INTO A VIDEO GAME" text returns
+- **12s**: Smartphone with five horizontal rectangles, circle outside phone at top
+- **13s**: Circle now inside smartphone near top
+- **14-16s**: Circle moves to different positions within smartphone interface
+- **17s**: Text "WAKE UP" visible in one of the smartphone menu rectangles
+- **18s**: Circle aligned with fourth rectangle, "WAKE UP" text no longer visible
+
+## Frames 19-26s: Grid Interaction Sequence
+- **19s**: Grid of dots with four larger, brighter dots in upper left quadrant
+- **20s**: Six brighter dots in upper left
+- **21s**: Nine brighter dots (3x3 formation) in lower center
+- **22s**: Single bright dot in center
+- **23s**: Six bright dots in 3x2 grid on right side
+- **24s**: 3x3 grid of bright dots with larger circle to the right
+- **25s**: 7x7 grid with two larger circles at center-left and top-right
+- **26s**: 7x7 grid with two squares (center-left and bottom-right) and one circle (top-right)
+
+## Frames 27-32s: Progress Bar Sequence
+- **27s**: Horizontal progress bar with small filled section on right side
+- **28s**: Progress increased from left side
+- **29s**: Bar half-filled with number "4" visible at end
+- **30s**: Bar completely unfilled, number gone
+- **31s**: Bar slightly filled again
+- **32s**: Bar shows more filling
+
+## Frames 33-36s: Shape Transition Sequence
+- **33s**: Three irregular polygonal shapes around small central circle
+- **34-35s**: Single large horizontal rectangle centered in frame
+- **36s**: Horizontal rectangle with semi-circle below it
+
+## Frames 37-43s: Globe Sequence
+- **37s**: Faint circular shape in center
+- **38-43s**: Detailed globe with visible landmasses rotating continuously
+- **Changes**: Globe rotates showing different landmasses across frames
+
+## Frames 44-49s: Central Dot with Radiation Sequence
+- **44s**: Central white dot with three arrowhead shapes positioned around it
+- **45s**: Globe reappears, replacing dot and arrowheads
+- **46-49s**: Central white dot returns with three arrowhead shapes and concentric curved lines emanating from each arrowhead
+- **Note**: No significant changes in final frames, maintaining consistent radiation pattern
