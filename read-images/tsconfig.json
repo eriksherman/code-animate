@@ -6,9 +6,9 @@
         "esModuleInterop": true,
         "strict": true,
         "outDir": "./dist",
-        "rootDir": "read-images/src",
+        "rootDir": "./src",
         "skipLibCheck": true
     },
-    "include": ["read-images/src/**/*"],
+    "include": ["src/**/*"],
     "exclude": ["node_modules"]
 }
